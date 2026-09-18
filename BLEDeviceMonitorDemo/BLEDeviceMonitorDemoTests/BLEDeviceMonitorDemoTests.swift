@@ -6,14 +6,20 @@
 //
 
 import Testing
+import XCTest
 @testable import BLEDeviceMonitorDemo
 
 struct BLEDeviceMonitorDemoTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
-        // Swift Testing Documentation
-        // https://developer.apple.com/documentation/testing
-    }
+    func testFetchDevicesReturnsData() async throws {
 
+        let repository = MockDeviceRepository()
+        let useCase = GetDevicesUseCase(
+            repository: repository
+        )
+
+        let devices = try await useCase.execute()
+
+        XCTAssertFalse(devices.isEmpty)
+    }
 }
