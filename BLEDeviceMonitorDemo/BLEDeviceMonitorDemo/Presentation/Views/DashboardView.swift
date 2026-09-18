@@ -41,13 +41,14 @@ struct DashboardView: View {
                     )
                     
                     NavigationLink {
-                        DeviceListView(
-                            viewModel: DeviceListViewModel(
-                                useCase: GetDevicesUseCase(
-                                    repository: MockDeviceRepository()
-                                )
-                            )
-                        )
+                        BluetoothView()
+//                        DeviceListView(
+//                            viewModel: DeviceListViewModel(
+//                                useCase: GetDevicesUseCase(
+//                                    repository: MockDeviceRepository()
+//                                )
+//                            )
+//                        )
                     } label: {
                         Text("View Devices")
                             .frame(maxWidth: .infinity)
