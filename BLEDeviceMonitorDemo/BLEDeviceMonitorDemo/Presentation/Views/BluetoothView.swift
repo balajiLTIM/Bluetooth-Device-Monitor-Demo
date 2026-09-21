@@ -15,8 +15,11 @@ struct BluetoothView: View {
 
         VStack(spacing: 20) {
             Text("Bluetooth State")
-            
+                .font(.headline)
+
             Text(stateText)
+                .font(.title3)
+                .fontWeight(.semibold)
 
             Button("Scan") {
                 bluetoothManager.startScan()
@@ -29,16 +32,32 @@ struct BluetoothView: View {
             Button("Disconnect") {
                 bluetoothManager.disconnect()
             }
+
+            Divider()
+
+            NavigationLink {
+                ConnectionHistoryView(
+                    events: bluetoothManager.history
+                )
+            } label: {
+                Text("View History")
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 12)
+                    )
+            }
         }
+        .padding()
         .navigationTitle("BLE Simulator")
     }
 
     private var stateText: String {
 
         switch bluetoothManager.state {
-        case .idle:
-            return "Idle"
-
+            
         case .scanning:
             return "Scanning"
 
@@ -47,12 +66,18 @@ struct BluetoothView: View {
 
         case .connected:
             return "Connected"
-
+            
         case .disconnected:
             return "Disconnected"
 
-        case .failed(let error):
-            return error
+        case .failed:
+            return "Failed"
         }
+    }
+}
+
+#Preview {
+    NavigationStack {
+        BluetoothView()
     }
 }
