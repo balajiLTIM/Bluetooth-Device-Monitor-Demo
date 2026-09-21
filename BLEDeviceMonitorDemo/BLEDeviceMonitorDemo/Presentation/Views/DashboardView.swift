@@ -1,10 +1,3 @@
-//
-//  DashboardView.swift
-//  BLEDeviceMonitorDemo
-//
-//  Created by Balaji Nagaraj on 18/09/26.
-//
-
 import SwiftUI
 
 struct DashboardView: View {
@@ -42,21 +35,18 @@ struct DashboardView: View {
                     
                     NavigationLink {
                         BluetoothView()
-//                        DeviceListView(
-//                            viewModel: DeviceListViewModel(
-//                                useCase: GetDevicesUseCase(
-//                                    repository: MockDeviceRepository()
-//                                )
-//                            )
-//                        )
                     } label: {
-                        Text("View Devices")
+                        Text("BLE Simulator")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue)
                             .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 12)
+                            )
                     }
+                    .accessibilityLabel("Open Bluetooth Simulator")
+                    .accessibilityHint("Navigates to Bluetooth simulator screen")
                     .padding(.top, 20)
                     Spacer()
                 }
