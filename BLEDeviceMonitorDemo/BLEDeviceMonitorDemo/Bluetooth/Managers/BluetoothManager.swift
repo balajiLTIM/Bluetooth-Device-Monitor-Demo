@@ -11,15 +11,16 @@ import Combine
 @MainActor
 final class BluetoothManager: ObservableObject {
 
-    @Published var state: BluetoothState = .idle
-
+    @Published var state: ConnectionStatus = .scanning
+    @Published var history: [ConnectionEvent] = []
+    
     func startScan() {
         state = .scanning
+        history.append(ConnectionEvent(timestamp: Date(),state: .scanning))
     }
 
     func connect() {
         state = .connecting
-
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             self.state = .connected
         }
