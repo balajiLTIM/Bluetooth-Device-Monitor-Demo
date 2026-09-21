@@ -24,15 +24,21 @@ struct BluetoothView: View {
             Button("Scan") {
                 bluetoothManager.startScan()
             }
+            .accessibilityLabel("Scan Bluetooth Devices")
+            .accessibilityHint("Starts Bluetooth scanning")
 
             Button("Connect") {
                 bluetoothManager.connect()
             }
+            .accessibilityLabel("Connect Bluetooth Device")
+            .accessibilityHint("Connects to a Bluetooth device")
 
             Button("Disconnect") {
                 bluetoothManager.disconnect()
             }
-
+            .accessibilityLabel("Disconnect Bluetooth Device")
+            .accessibilityHint("Disconnects the current Bluetooth device")
+            
             Divider()
 
             NavigationLink {
