@@ -1,24 +1,26 @@
 //
-//  GetDevicesUseCaseTests.swift
+//  DeviceListViewModelTests.swift
 //  BLEDeviceMonitorDemoTests
 //
-//  Created by Balaji Nagaraj on 18/09/26.
+//  Created by Balaji Nagaraj on 21/09/26.
 //
 
 import XCTest
 @testable import BLEDeviceMonitorDemo
 
-final class GetDevicesUseCaseTests: XCTestCase {
-
+final class DeviceListViewModelTests: XCTestCase {
+    
     @MainActor
-    func testFetchDevicesReturnsDevices() async throws {
-
+    func fetchDevicesReturnsDevices() async throws {
+        
         let repository = MockDeviceRepository()
         
         let useCase = GetDevicesUseCase(
             repository: repository
         )
+        
         let devices = try await useCase.execute()
-        XCTAssertFalse(devices.isEmpty)
+        XCTAssert(devices.isEmpty)
+        XCTAssert(devices.count == 2)
     }
 }
