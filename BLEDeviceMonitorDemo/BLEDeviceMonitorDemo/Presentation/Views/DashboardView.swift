@@ -7,57 +7,90 @@
 
 import SwiftUI
 
+@MainActor
 struct DashboardView: View {
-
-    let totalDevices = 5
-    let connectedDevices = 3
-    let disconnectedDevices = 2
-
+    
+    @StateObject private var viewModel = DashboardViewModel(coreBluetoothManager: CoreBluetoothManager())
+    
     var body: some View {
         NavigationStack {
             ScrollView {
-                VStack(spacing: 20) {
+                
+                VStack(spacing: 24) {
+                    
                     Text("BLE Device Monitor")
                         .font(.largeTitle)
                         .fontWeight(.bold)
+                    
+                    HStack {
+                        Picker("Device Source", selection: $viewModel.selectedSource) {
+                            Text("Mock")
+                                .tag(DeviceSource.mock)
+                            
+                            Text("Real BLE")
+                                .tag(DeviceSource.bluetooth)
+                        }
+                        .pickerStyle(.segmented)
+                        .onChange(of: viewModel.selectedSource) { _, newValue in
+                            
+                            switch newValue {
+                                
+                            case .mock:
+                                viewModel.loadMockData()
+                                
+                            case .bluetooth:
+                                viewModel.switchToBluetooth()
+                            }
+                        }
+                    }
+                    
                     HStack(spacing: 16) {
                         
                         DashboardCardView(
                             title: "Total Devices",
-                            value: "\(totalDevices)",
+                            value: "\(viewModel.totalDevices)",
                             color: .blue
                         )
                         
                         DashboardCardView(
                             title: "Connected",
-                            value: "\(connectedDevices)",
+                            value: "\(viewModel.connectedDevices)",
                             color: .green
                         )
                     }
+                    
                     DashboardCardView(
                         title: "Disconnected",
-                        value: "\(disconnectedDevices)",
+                        value: "\(viewModel.disconnectedDevices)",
                         color: .red
                     )
                     
                     NavigationLink {
-                        BluetoothView()
-//                        DeviceListView(
-//                            viewModel: DeviceListViewModel(
-//                                useCase: GetDevicesUseCase(
-//                                    repository: MockDeviceRepository()
-//                                )
-//                            )
-//                        )
+                        BluetoothDevicesView()
                     } label: {
-                        Text("View Devices")
+                        Text("Nearby BLE Devices")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.green)
+                            .foregroundStyle(.white)
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 12)
+                            )
+                    }
+                    
+                    NavigationLink {
+                        BluetoothView()
+                    } label: {
+                        Text("BLE Simulator")
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.blue)
                             .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                            .clipShape(
+                                RoundedRectangle(cornerRadius: 12)
+                            )
                     }
-                    .padding(.top, 20)
+                    
                     Spacer()
                 }
                 .padding()
@@ -70,3 +103,4 @@ struct DashboardView: View {
 #Preview {
     DashboardView()
 }
+
