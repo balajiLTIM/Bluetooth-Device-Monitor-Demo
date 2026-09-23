@@ -21,8 +21,10 @@ final class BluetoothManager: ObservableObject {
 
     func connect() {
         state = .connecting
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            self.state = .connected
+
+        Task {
+            try? await Task.sleep(for: .seconds(2))
+            state = .connected
         }
     }
 
