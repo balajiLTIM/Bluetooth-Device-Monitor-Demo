@@ -1,10 +1,3 @@
-//
-//  DashboardView.swift
-//  BLEDeviceMonitorDemo
-//
-//  Created by Balaji Nagaraj on 18/09/26.
-//
-
 import SwiftUI
 
 @MainActor

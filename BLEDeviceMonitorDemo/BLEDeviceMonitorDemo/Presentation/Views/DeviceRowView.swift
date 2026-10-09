@@ -26,6 +26,9 @@ struct DeviceRowView: View {
                 .frame(width: 12, height: 12)
         }
         .padding(.vertical, 4)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(device.name), Battery \(device.batteryLevel) percent")
+        .accessibilityValue(device.isConnected ? "Connected" : "Disconnected")
     }
 }
 

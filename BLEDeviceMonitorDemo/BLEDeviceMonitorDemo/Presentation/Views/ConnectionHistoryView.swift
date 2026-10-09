@@ -23,6 +23,8 @@ struct ConnectionHistoryView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(event.stateDisplayName) at \(event.timestamp.formatted())")
         }
         .navigationTitle("Connection History")
     }
