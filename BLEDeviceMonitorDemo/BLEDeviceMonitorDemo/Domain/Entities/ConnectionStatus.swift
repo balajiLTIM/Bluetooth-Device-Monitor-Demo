@@ -7,10 +7,25 @@
 
 import Foundation
 
-enum ConnectionStatus {
+enum ConnectionStatus: Equatable {
     case scanning
     case connecting
     case connected
     case disconnected
     case failed
+
+    var displayName: String {
+        switch self {
+        case .scanning:
+            return "Scanning"
+        case .connecting:
+            return "Connecting"
+        case .connected:
+            return "Connected"
+        case .disconnected:
+            return "Disconnected"
+        case .failed:
+            return "Failed"
+        }
+    }
 }

@@ -24,18 +24,9 @@ struct RootView: View {
                     case .deviceList:
 
                         let repository = MockDeviceRepository()
-
-                        let useCase = GetDevicesUseCase(
-                            repository: repository
-                        )
-
-                        let viewModel = DeviceListViewModel(
-                            useCase: useCase
-                        )
-
-                        DeviceListView(
-                            viewModel: viewModel
-                        )
+                        let useCase = GetDevicesUseCase(repository: repository)
+                        let viewModel = DeviceListViewModel(useCase: useCase)
+                        DeviceListView(viewModel: viewModel)
 
                     case .bluetooth:
 
@@ -43,9 +34,7 @@ struct RootView: View {
 
                     case .deviceDetail(let device):
 
-                        DeviceDetailView(
-                            device: device
-                        )
+                        DeviceDetailView(device: device)
                     }
                 }
         }

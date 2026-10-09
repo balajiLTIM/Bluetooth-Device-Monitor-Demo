@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import CoreBluetooth
 
 struct BluetoothDevice: Identifiable {
     let id: UUID
     let name: String
     let rssi: Int
+    var isConnected: Bool
+    let peripheral: CBPeripheral
 }
